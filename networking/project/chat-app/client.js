@@ -20,5 +20,5 @@ client.on("end", () => {
   console.log("END!");
 });
 client.on("error", (err) => {
-  console.error("Request error:");
+  console.error("Request error: ");
 });
