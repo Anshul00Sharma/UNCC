@@ -15,6 +15,12 @@ function encodeData(type, data, id) {
       id,
     };
     return JSON.stringify(obj);
+  } else if (type === "broadcast") {
+    let obj = {
+      type: type,
+      data: data,
+    };
+    return JSON.stringify(obj);
   }
 }
 
@@ -24,9 +30,17 @@ function decodeData(dataString) {
 }
 
 // Function to handle new connections
-function newConnection(len, socket) {
-  let data = encodeData("new-connection", (len + 1).toString());
+function newConnection(clientId, socket, clients) {
+  let data = encodeData("new-connection", clientId);
+  let msg = `User ${clientId} joined.`;
+  broadcast(msg, clients);
   socket.write(data);
+}
+function broadcast(msg, clients) {
+  let data = encodeData("broadcast", msg);
+  clients.map((s) => {
+    s.socket.write(data);
+  });
 }
 
 // Function to send messages
@@ -41,4 +55,5 @@ module.exports = {
   sendMsg,
   encodeData,
   decodeData,
+  broadcast,
 };

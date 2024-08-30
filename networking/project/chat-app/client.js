@@ -45,22 +45,29 @@ const client = net.createConnection(
       let dataObj = decodeData(data);
       if (dataObj.type === "new-connection") {
         id = dataObj.data;
+
         console.log();
-        // move the curser one line up
         await movecursor(0, -1);
-        // clear the current line
         await clearLine(0);
+
         console.log(`Your id is ${id}`);
+
         ask();
       } else if (dataObj.type === "msg") {
-        // log an empty line
         console.log();
-        // move the curser one line up
         await movecursor(0, -1);
-        // clear the current line
         await clearLine(0);
-        // console.log(data.toString());
+
         console.log(`User ${dataObj.id} : ${dataObj.data}`);
+
+        ask();
+      } else if (dataObj.type === "broadcast") {
+        console.log();
+        await movecursor(0, -1);
+        await clearLine(0);
+
+        console.log(dataObj.data);
+
         ask();
       }
     });
