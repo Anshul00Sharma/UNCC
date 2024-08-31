@@ -33,9 +33,9 @@ const client = net.createConnection(
     console.log("Connected to the server");
     const ask = async () => {
       const message = await rl.question("Enter a message > ");
-      // move the curser one line up
+
       await movecursor(0, -1);
-      // clear the current line
+
       await clearLine(0);
       let encodedData = encodeData("msg", message, id);
       client.write(encodedData);
