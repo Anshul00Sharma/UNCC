@@ -1,0 +1,3 @@
+this is some data that i want 
+Got this data from standard input: hello bahanchod
+
